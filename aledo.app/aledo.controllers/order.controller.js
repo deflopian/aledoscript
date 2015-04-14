@@ -2,6 +2,9 @@
 (function($) {
     function OrderPlaceController($scope, $http) {
         $scope.fileName = "";
+        $scope.cartCookieName = "products_in_cart";
+        $scope.products = [];
+
         $scope.showFileName = function(input) {
             var $this = jQuery(input),
                 val = $this.val().split('\\'),
