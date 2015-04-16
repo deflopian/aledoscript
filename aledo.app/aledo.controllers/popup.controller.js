@@ -10,6 +10,7 @@
         $scope.ALEDO_POPUP_REGISTER_SUCCESS = 7;
         $scope.ALEDO_POPUP_CART_REGISTER_SUCCESS = 8;
         $scope.ALEDO_POPUP_PARTNER_CARD = 9;
+        $scope.ALEDO_POPUP_SERVICE_CALCULATE = 10;
 
 
         $scope.cache = "";
