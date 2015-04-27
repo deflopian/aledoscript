@@ -1,5 +1,5 @@
 (function ($) {
-    function PopupController($scope, $http, $location) {
+    function PopupController($scope, $http, $location, $compile) {
         $scope.ALEDO_POPUP_ERROR = 0;
         $scope.ALEDO_POPUP_SUCCESS = 1;
         $scope.ALEDO_POPUP_LOGIN = 2;
@@ -11,9 +11,11 @@
         $scope.ALEDO_POPUP_CART_REGISTER_SUCCESS = 8;
         $scope.ALEDO_POPUP_PARTNER_CARD = 9;
         $scope.ALEDO_POPUP_SERVICE_CALCULATE = 10;
-
+        $scope.formData = {};
 
         $scope.cache = "";
+
+        $scope.source = "";
 
         $scope.getPopup = function(popupType, parameters) {
             $http({
@@ -25,7 +27,8 @@
             .success(function(data) {
                     if(data.success){
                         var modal = $('#fooBarPopup');
-                        modal.find('.modal-content').html(data.content);
+
+                        //modal.find('.modal-content').html(data.content);
 
                         if(popupType == $scope.ALEDO_POPUP_CART_BUY || popupType == $scope.ALEDO_POPUP_CART_BUY_WITHOUT_REGISTER){
                             modal.addClass('cart-buy-popup');
@@ -36,12 +39,26 @@
                         if(popupType == $scope.ALEDO_POPUP_REGISTER_SUCCESS){
                             modal.on('hidden.bs.modal', function () { location.reload(true); });
                         }
+                        if (popupType == $scope.ALEDO_POPUP_SERVICE_CALCULATE || popupType == $scope.ALEDO_POPUP_CART_REGISTER) {
+                            modal.find('.modal-content').addClass("popup-service");
+                        }
+                        //modal.modal('show');
+                        $scope.source = data.content;
+                        modal.find('.modal-content').html($scope.source);
 
+                        // compile the new DOM and link it to the current
+                        // scope.
+                        // NOTE: we only compile .childNodes so that
+                        // we don't get into infinite loop compiling ourselves
+                        $compile(modal.find('.modal-content').contents())($scope);
                         modal.modal('show');
+                        //$scope.$eval(attrs.compile);
+                        //$scope.$apply();
                     }
             });
-        }
+        };
+
     }
-    angular.module('aledo.controllers').controller("PopupController", ["$scope", "$http", "$location", PopupController]);
+    angular.module('aledo.controllers').controller("PopupController", ["$scope", "$http", "$location", "$compile", PopupController]);
 
 })(jQuery)
