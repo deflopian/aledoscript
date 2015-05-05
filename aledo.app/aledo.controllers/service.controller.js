@@ -1,11 +1,15 @@
 ﻿(function ($) {
     function CalculationServiceController($scope, $http) {
         $scope.submit = function () {
-            $http({
-                method  : 'POST',
-                url     : '/services/saveFormAjax/',
-                data    : $.param($scope.formData),
-                headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+            var fd = new FormData();
+
+            for (var j in $scope.formData) {
+                fd.append(j, $scope.formData[j]);
+            }
+
+            $http.post('/services/saveFormAjax/', fd, {
+                transformRequest: angular.identity,
+                headers : { 'Content-Type': undefined }
             })
                 .success(function(data) {
                     console.log(data);
@@ -42,7 +46,9 @@
             }, 0);
         };
 
+        $scope.updateFile = function() {
 
+        }
     }
     angular.module('aledo.controllers').controller("CalculationServiceController", ["$scope", "$http", CalculationServiceController]);
 })(jQuery)

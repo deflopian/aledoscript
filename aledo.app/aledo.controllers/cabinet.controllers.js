@@ -1,25 +1,58 @@
 ﻿(function ($) {
     function ChangeDataController($scope, $http) {
         $scope.submit = function () {
-            //todo
+
+
+            $http({
+                method  : 'POST',
+                url     : '/cabinet/updateRegisterInfo/',
+                data    : $.param($scope.formData),
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+            })
+                .success(function(data) {
+                    console.log(data);
+
+                    if (!data.success) {
+                        $scope.errorUsername = data.errors.username;
+                        $scope.errorPassword = data.errors.password;
+                    } else {
+                        location.reload();
+                    }
+                });
         };
     }
 
     function ChangePwdController($scope, $http) {
         $scope.submit = function () {
-            //todo
+            $http({
+                method  : 'POST',
+                url     : '/cabinet/changepassword/',
+                data    : $.param($scope.formData),
+                headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
+            })
+                .success(function(data) {
+                    console.log(data);
+
+                    if (!data.success) {
+                        $scope.errorPassword = data.errors.password;
+                    } else {
+                        location.reload();
+                    }
+                });
         };
-        $scope.$watch("change_pwd_new_password", function (oldValue, newValue) {
+        $scope.$watch("formData.newCredential", function (oldValue, newValue) {
             if (!_checkPasswords()) {
                 $scope.changePassword.$invalid = true;
             }
         });
-        $scope.$watch("change_pwd_new_password_repeat", function (oldValue, newValue) {
-
+        $scope.$watch("formData.newCredentialVerify", function (oldValue, newValue) {
+            if (!_checkPasswords()) {
+                $scope.changePassword.$invalid = true;
+            }
         });
 
         function _checkPasswords() {
-            //return $scope.change_pwd_new_password == $scope.change_pwd_new_password;
+            return $scope.formData.newCredential == $scope.formData.newCredentialVerify;
         }
     }
 

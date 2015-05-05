@@ -14,21 +14,22 @@
         $scope.formData = {};
 
         $scope.cache = "";
-
+        $scope.history = [];
         $scope.source = "";
 
-        $scope.getPopup = function(popupType, parameters) {
+        $scope.getPopupData = function(popupType, parameters) {
             $http({
                 method  : 'POST',
                 url     : '/app/showFooBarPopup/',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
                 data : {'type': popupType, 'url': $location.href, 'params': parameters}
             })
-            .success(function(data) {
+                .success(function(data) {
                     if(data.success){
                         var modal = $('#fooBarPopup');
-
+                        modal.find('.modal-content').removeClass("popup-service popup-register popup-cart-buy popup-cart-buy-without-register");
                         //modal.find('.modal-content').html(data.content);
+
 
                         if(popupType == $scope.ALEDO_POPUP_CART_BUY || popupType == $scope.ALEDO_POPUP_CART_BUY_WITHOUT_REGISTER){
                             modal.addClass('cart-buy-popup');
@@ -55,8 +56,28 @@
                         //$scope.$eval(attrs.compile);
                         //$scope.$apply();
                     }
-            });
+                });
         };
+
+        $scope.getPopup = function(popupType, parameters, parentPopupType, parentData) {
+            console.log(parentPopupType, parentData);
+            console.log($scope.history);
+            if (parentPopupType) {
+                $scope.history.push({
+                    'type' : parentPopupType,
+                    'formData' : parentData
+                })
+            }
+            $scope.getPopupData(popupType, parameters);
+        };
+
+        $scope.popupHistoryBack = function() {
+            console.log($scope);
+            if ($scope.$parent.history.length > 0) {
+                $scope.getPopupData($scope.$parent.history[$scope.$parent.history.length-1].type);
+                $scope.formData = $scope.$parent.history[$scope.$parent.history.length-1].formData;
+            }
+        }
 
     }
     angular.module('aledo.controllers').controller("PopupController", ["$scope", "$http", "$location", "$compile", PopupController]);

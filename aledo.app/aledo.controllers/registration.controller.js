@@ -1,9 +1,10 @@
 ﻿(function ($) {
     function RegistrationController($scope, $http) {
+        $scope.formData = {};
         $scope.submit = function () {
             $http({
                 method  : 'POST',
-                url     : '/user/register/',
+                url     : '/cabinet/register/',
                 data    : $.param($scope.formData),
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
             })
