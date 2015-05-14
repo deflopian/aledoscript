@@ -11,6 +11,7 @@
         $scope.ALEDO_POPUP_CART_REGISTER_SUCCESS = 8;
         $scope.ALEDO_POPUP_PARTNER_CARD = 9;
         $scope.ALEDO_POPUP_SERVICE_CALCULATE = 10;
+        $scope.ALEDO_POPUP_FORGOT = 11;
         $scope.formData = {};
 
         $scope.cache = "";
@@ -69,6 +70,11 @@
                 })
             }
             $scope.getPopupData(popupType, parameters);
+        };
+
+        $scope.closePopup = function() {
+            var modal = $('#fooBarPopup');
+            modal.modal('hide');
         };
 
         $scope.popupHistoryBack = function() {
