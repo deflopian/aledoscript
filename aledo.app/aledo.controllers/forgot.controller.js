@@ -1,8 +1,7 @@
 ﻿(function ($) {
     function ForgotPasswordController($scope, $http) {
         $scope.formData = {};
-        $scope.errorUsername = "";
-        $scope.errorPassword = "";
+        $scope.userNotFound = false;
 
         $scope.submit = function() {
             $http({
@@ -15,7 +14,7 @@
                     console.log(data);
 
                     if (!data.success) {
-                        $scope.errorIdentity = data.errors.username;
+                        $scope.userNotFound = true;
                     } else {
                         $scope.closePopup();
                     }

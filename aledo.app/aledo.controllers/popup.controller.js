@@ -12,6 +12,8 @@
         $scope.ALEDO_POPUP_PARTNER_CARD = 9;
         $scope.ALEDO_POPUP_SERVICE_CALCULATE = 10;
         $scope.ALEDO_POPUP_FORGOT = 11;
+        $scope.ALEDO_POPUP_ORDER_SUCCESS = 12;
+        $scope.ALEDO_POPUP_QUESTION_SUCCESS = 13;
         $scope.formData = {};
 
         $scope.cache = "";
@@ -38,6 +40,8 @@
                             modal.removeClass('cart-buy-popup');
                         }
 
+
+
                         if(popupType == $scope.ALEDO_POPUP_REGISTER_SUCCESS){
                             modal.on('hidden.bs.modal', function () { location.reload(true); });
                         }
@@ -58,6 +62,13 @@
                         //$scope.$apply();
                     }
                 });
+        };
+
+        $scope.checkDefaultPopup = function() {
+            var params = $location.search();
+            if (params['popup']) {
+                $scope.getPopup(params['popup'], {});
+            }
         };
 
         $scope.getPopup = function(popupType, parameters, parentPopupType, parentData) {

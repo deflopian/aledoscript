@@ -100,7 +100,9 @@
                         $scope.errorPassword = data.errors.password;
                     } else {
                         cart.clearCart();
-                        location.reload();
+                        $('.b-cart-table').remove();
+                        setTimeout(function(){location.reload()}, 20000);
+                        $scope.getPopup($scope.ALEDO_POPUP_ORDER_SUCCESS, {orderId:data['orderId']});
                     }
                 });
 

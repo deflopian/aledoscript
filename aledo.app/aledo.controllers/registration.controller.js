@@ -1,6 +1,20 @@
 ﻿(function ($) {
     function RegistrationController($scope, $http) {
         $scope.formData = {};
+        $scope.validityOnChange = function(field) {
+            if ($scope.registration[field].$invalid) {
+                $scope.registration[field].$invalid = false;
+            }
+
+            for (var f in $scope.formData) {
+                console.log(f, $scope.registration[f]);
+                if ($scope.registration[f] && ($scope.registration[f].$pristine || $scope.registration[f].$invalid)) {
+                    return false;
+                }
+            }
+
+            $scope.registration.$invalid = false;
+        };
         $scope.submit = function () {
             $http({
                 method  : 'POST',
@@ -9,13 +23,18 @@
                 headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
             })
                 .success(function(data) {
-                    console.log(data);
-
                     if (!data.success) {
-                        $scope.errorUsername = data.errors.username;
-                        $scope.errorPassword = data.errors.password;
+                        for (var field in data.errors) {
+                            for (var errNum in data.errors[field]) {
+
+                                $scope.registration[field].$setValidity(errNum, false);
+                            }
+                        }
+                        //
+                        //$scope.errorUsername = data.e$ors.username;
+                        //$scope.errorPassword = data.errors.password;
                     } else {
-                        location.reload();
+                        $scope.getPopup($scope.ALEDO_POPUP_REGISTER_SUCCESS, {email:$scope.formData.user_email});
                     }
                 });
         };

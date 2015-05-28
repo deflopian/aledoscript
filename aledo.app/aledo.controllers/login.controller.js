@@ -1,9 +1,7 @@
 ﻿(function ($) {
     function LoginController($scope, $http) {
         $scope.formData = {};
-        $scope.errorUsername = "";
-        $scope.errorPassword = "";
-
+        $scope.loginError = false;
         $scope.submit = function() {
             $http({
                 method  : 'POST',
@@ -15,8 +13,7 @@
                     console.log(data);
 
                     if (!data.success) {
-                        $scope.errorUsername = data.errors.username;
-                        $scope.errorPassword = data.errors.password;
+                        $scope.loginError = true;
                     } else {
                         location.reload();
                     }
