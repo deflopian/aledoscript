@@ -1,5 +1,5 @@
 (function ($) {
-    function PopupController($scope, $http, $location, $compile) {
+    function PopupController($scope, $http, $compile) {
         $scope.ALEDO_POPUP_ERROR = 0;
         $scope.ALEDO_POPUP_SUCCESS = 1;
         $scope.ALEDO_POPUP_LOGIN = 2;
@@ -14,6 +14,7 @@
         $scope.ALEDO_POPUP_FORGOT = 11;
         $scope.ALEDO_POPUP_ORDER_SUCCESS = 12;
         $scope.ALEDO_POPUP_QUESTION_SUCCESS = 13;
+        $scope.ALEDO_POPUP_CALLBACK = 14;
         $scope.formData = {};
 
         $scope.cache = "";
@@ -25,7 +26,7 @@
                 method  : 'POST',
                 url     : '/app/showFooBarPopup/',
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                data : {'type': popupType, 'url': $location.href, 'params': parameters}
+                data : {'type': popupType, 'url': "", 'params': parameters}
             })
                 .success(function(data) {
                     if(data.success){
@@ -65,15 +66,14 @@
         };
 
         $scope.checkDefaultPopup = function() {
-            var params = $location.search();
+            var params = $.url().param();
+            console.log(params);
             if (params['popup']) {
                 $scope.getPopup(params['popup'], {});
             }
         };
 
         $scope.getPopup = function(popupType, parameters, parentPopupType, parentData) {
-            console.log(parentPopupType, parentData);
-            console.log($scope.history);
             if (parentPopupType) {
                 $scope.history.push({
                     'type' : parentPopupType,
@@ -97,6 +97,6 @@
         }
 
     }
-    angular.module('aledo.controllers').controller("PopupController", ["$scope", "$http", "$location", "$compile", PopupController]);
+    angular.module('aledo.controllers').controller("PopupController", ["$scope", "$http", "$compile", PopupController]);
 
 })(jQuery)
