@@ -3,18 +3,22 @@
         $scope.formData = {};
 
         $scope.validityOnChange = function(field) {
+            //console.log($scope.partnerRegistration[field]);
             if ($scope.partnerRegistration[field].$invalid) {
                 $scope.partnerRegistration[field].$invalid = false;
+                $scope.partnerRegistration[field].$valid = true;
             }
 
             for (var f in $scope.formData) {
-                console.log(f, $scope.partnerRegistration[f]);
-                if ($scope.partnerRegistration[f] && ($scope.partnerRegistration[f].$pristine || $scope.partnerRegistration[f].$invalid)) {
+
+                if ($scope.partnerRegistration[f] && (($scope.partnerRegistration[f].$pristine && $scope.partnerRegistration[f].$validators['required']) || $scope.partnerRegistration[f].$invalid)) {
+                    console.log($scope.partnerRegistration[f]);
                     return false;
                 }
             }
 
             $scope.partnerRegistration.$invalid = false;
+            $scope.partnerRegistration.$valid = true;
         };
 
         $scope.str_replace = function  ( search, replace, subject ) {	// Replace all occurrences of the search string with the replacement string

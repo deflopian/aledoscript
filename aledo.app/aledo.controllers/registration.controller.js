@@ -8,7 +8,7 @@
 
             for (var f in $scope.formData) {
                 console.log(f, $scope.registration[f]);
-                if ($scope.registration[f] && ($scope.registration[f].$pristine || $scope.registration[f].$invalid)) {
+                if ($scope.registration[f] && (($scope.registration[f].$pristine && $scope.registration[f].$validators['required']) || $scope.registration[f].$invalid)) {
                     return false;
                 }
             }
