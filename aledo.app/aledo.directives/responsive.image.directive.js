@@ -58,7 +58,7 @@
                     _setSizes = function (availableSizes) {
                         var src, css;
                         if (!availableSizes.length) {
-                            if ($image.data("ResponsiveImage").default) {
+                               if ($image.data("ResponsiveImage")["default"]) {
                                 return;
                             }
                             src = _.responsive["default"].src;
@@ -67,6 +67,7 @@
                         } else {
                             src = _.responsive[availableSizes[availableSizes.length - 1]].src;
                             css = _.responsive[availableSizes[availableSizes.length - 1]].css;
+							$image.data("ResponsiveImage", { "default": false });
                         }
 
                         if (_.node == "img") {
