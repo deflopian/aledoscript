@@ -131,7 +131,7 @@ jQuery.fn.clickOrNot = function() {
             deltaY = startY - endposY,
             touchThreshold = e.type == "touchend" ? 10 : 5;
         if (Math.abs(deltaX) < touchThreshold && Math.abs(deltaY) < touchThreshold) {
-
+            console.log(touchThreshold, deltaX, deltaY);
             var e = jQuery.Event("clickOrNot", { target: e.target });
             $this.trigger(e);
         }

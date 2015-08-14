@@ -4,7 +4,7 @@
             restrict: 'A',
             link: function (scope, $element, attrs, ctrl) {
                 var $field = $element.find("input"),
-                    $hidden = $element.find("span"),
+                    $hidden = $element.find(".b-editable-field__inner span"),
                     $button = $element.find(".b-editable-field__icon"),
                     _setDisabled = function(){
                         $field.attr("readonly","readonly");
