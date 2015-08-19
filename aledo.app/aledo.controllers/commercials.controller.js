@@ -178,7 +178,13 @@
                     'type': "commercial"
                 })
                     .success(function(commercial){
-                        console.log("commercial successfully deleted")
+                        console.log("commercial successfully deleted");
+                        for(var commKey in $scope.commercials) {
+                            if ($scope.commercials[commKey].uid == commericalId) {
+                                $scope.commercials.splice(commKey, 1);
+                                break;
+                            }
+                        }
                     })
                     .error(function(err){
                         return err;
@@ -264,7 +270,7 @@
                     'type': $scope.type
                 })
                     .success(function(){
-                        console.log("room successfully deleted")
+                        console.log("room successfully deleted");
                     })
                     .error(function(err){
                         return err;
