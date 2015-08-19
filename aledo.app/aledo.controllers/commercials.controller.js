@@ -265,12 +265,18 @@
                         return err;
                     });
             },
-            remove: function(roomId) {
+            remove: function(roomId, rooms) {
                 $http.delete("/api/rooms/" + roomId + '/', {
                     'type': $scope.type
                 })
                     .success(function(){
                         console.log("room successfully deleted");
+                        for(var roomKey in rooms) {
+                            if (rooms[roomKey].id == roomId) {
+                                $scope.commercials.splice(roomKey, 1);
+                                break;
+                            }
+                        }
                     })
                     .error(function(err){
                         return err;
