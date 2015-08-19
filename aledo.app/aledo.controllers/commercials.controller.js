@@ -271,9 +271,10 @@
                 })
                     .success(function(){
                         console.log("room successfully deleted");
-                        for(var roomKey in rooms) {
-                            if (rooms[roomKey].id == roomId) {
-                                $scope.commercials.splice(roomKey, 1);
+
+                        for(var roomKey in $scope.commercial.rooms) {
+                            if ($scope.commercial.rooms[roomKey].id == roomId) {
+                                $scope.commercial.rooms.splice(roomKey, 1);
                                 break;
                             }
                         }
