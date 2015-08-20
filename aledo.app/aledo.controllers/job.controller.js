@@ -1,7 +1,12 @@
 ﻿(function ($) {
     function JobController($scope, $http) {
         $scope.formData = {};
+		
         $scope.submit = function () {
+			$scope.nameError = false;
+			$scope.mailError = false;
+			$scope.fileError = false;
+		
             var fd = new FormData();
 
             for (var j in $scope.formData) {
@@ -16,7 +21,9 @@
                     console.log(data);
 
                     if (!data.success) {
-                        $scope.errorUsername = data.errors.username;
+						if (data.messages.name) $scope.nameError = true;						
+						if (data.messages.mail) $scope.mailError = true;
+						if (data.messages.file) $scope.fileError = true;
                     } else {
                         location.reload();
                     }
