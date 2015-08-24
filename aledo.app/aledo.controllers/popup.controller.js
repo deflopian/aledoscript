@@ -15,6 +15,7 @@
         $scope.ALEDO_POPUP_ORDER_SUCCESS = 12;
         $scope.ALEDO_POPUP_QUESTION_SUCCESS = 13;
         $scope.ALEDO_POPUP_CALLBACK = 14;
+		$scope.ALEDO_POPUP_VACANCY_REQUEST = 15;
         $scope.formData = {};
 
         $scope.cache = "";
@@ -46,7 +47,7 @@
                         if(popupType == $scope.ALEDO_POPUP_REGISTER_SUCCESS){
                             modal.on('hidden.bs.modal', function () { location.reload(true); });
                         }
-                        if (popupType == $scope.ALEDO_POPUP_SERVICE_CALCULATE || popupType == $scope.ALEDO_POPUP_CART_REGISTER) {
+                        if (popupType == $scope.ALEDO_POPUP_SERVICE_CALCULATE || popupType == $scope.ALEDO_POPUP_CART_REGISTER || popupType == $scope.ALEDO_POPUP_VACANCY_REQUEST) {
                             modal.find('.modal-content').addClass("popup-service");
                         }
                         //modal.modal('show');
