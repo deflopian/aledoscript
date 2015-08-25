@@ -16,6 +16,7 @@
         $scope.ALEDO_POPUP_QUESTION_SUCCESS = 13;
         $scope.ALEDO_POPUP_CALLBACK = 14;
 		$scope.ALEDO_POPUP_VACANCY_REQUEST = 15;
+		$scope.ALEDO_POPUP_VACANCY_REQUEST_SUCCESS = 16;
         $scope.formData = {};
 
         $scope.cache = "";
