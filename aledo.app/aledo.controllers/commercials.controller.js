@@ -3,12 +3,15 @@
         $scope.MODE_VIEW_ALL_COMMERCIALS = 0;
         $scope.MODE_VIEW_ONE_COMMERCIAL = 1;
         $scope.MODE_VIEW_ONE_ROOM = 2;
+		$scope.MODE_PRICE_NO_DISCOUNTS = 0;
+        $scope.MODE_PRICE_ADD_DISCOUNTS = 1;
         $scope.viewRoomId = 0;
         $scope.viewCommercialUid = 0;
         $scope.commercials = [];
         $scope.rooms = [];
         $scope.products = [];
         $scope.type;
+		$scope.priceMode = $scope.MODE_PRICE_NO_DISCOUNTS;
         $scope.viewMode = $scope.MODE_VIEW_ALL_COMMERCIALS;
 
         $scope.sortableOptions = {
@@ -189,6 +192,23 @@
                     .error(function(err){
                         return err;
                     });
+            },
+			addDiscounts: function(commercialId, userId) {
+				
+			},
+			removeDiscounts: function(commercial) {
+                /*commercial.title = $('.b-editable-field__inner.commercial' + commercial.uid).find('span').text();
+                $http.put("/api/commercials/" + commercial.uid, {
+                    'type': "commercial",
+                    'entity' : commercial
+                })
+                    .success(function(commercial){
+                        console.log("commercial discounts successfully removed")
+                    })
+                    .error(function(err){
+                        return err;
+                    });*/
+				location.reload();
             }
         };
 
