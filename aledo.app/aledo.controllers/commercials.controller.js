@@ -38,7 +38,8 @@
             datetime:0,
             title:"",
             id:0,
-            user_id:0
+            user_id:0,
+			price_user_id:0
         };
 
         $scope.bindData = function(data) {
@@ -193,23 +194,33 @@
                         return err;
                     });
             },
-			addDiscounts: function(commercialId, userId) {
+			actualize: function(commercialId, userId, ask) {
+				var yes = false;
 				
-			},
-			removeDiscounts: function(commercial) {
-                /*commercial.title = $('.b-editable-field__inner.commercial' + commercial.uid).find('span').text();
-                $http.put("/api/commercials/" + commercial.uid, {
-                    'type': "commercial",
-                    'entity' : commercial
-                })
-                    .success(function(commercial){
-                        console.log("commercial discounts successfully removed")
+				if (ask) {
+				    if (userId > 0) {
+					    yes = confirm ('Вы действительно хотите применить цены данного пользователя?');
+				    }
+				    else {
+					    yes = confirm ('Вы действительно хотите сбросить скидки пользователя к розничным ценам?');
+				    }
+				}
+				else yes = true;
+				
+				if (yes) {					
+					$http.post("/commercials/actualize/" + commercialId, {
+                        'async': 1,
+                        'price_user_id' : userId
                     })
-                    .error(function(err){
-                        return err;
-                    });*/
-				location.reload();
-            }
+                        .success(function(commercial){
+                            console.log("commercial successfully actualized");
+							location.reload();
+                        })
+                        .error(function(err){
+                            location.reload();
+                        });
+				}
+			},
         };
 
         $scope.roomAPI = {
