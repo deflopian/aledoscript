@@ -13,6 +13,7 @@
         $scope.type;
 		$scope.priceMode = $scope.MODE_PRICE_NO_DISCOUNTS;
         $scope.viewMode = $scope.MODE_VIEW_ALL_COMMERCIALS;
+		$scope.priceUser = [];
 
         $scope.sortableOptions = {
 
@@ -133,6 +134,7 @@
                         $scope.commercial = angular.fromJson(data);
                         $scope.viewMode = $scope.MODE_VIEW_ONE_COMMERCIAL;
                         $scope.viewCommercialUid = $scope.commercial.uid;
+						$scope.commercialAPI.getPriceUser($scope.commercial.price_user_id);
                         if (then) {
                             if (arg) {
                                 then(arg);
@@ -148,7 +150,6 @@
                     });
 
             },
-
             viewAll: function() {
                 $scope.viewMode = $scope.MODE_VIEW_ALL_COMMERCIALS;
             },
@@ -208,11 +209,8 @@
 				else yes = true;
 				
 				if (yes) {					
-					$http.post("/commercials/actualize/" + commercialId, {
-                        'async': 1,
-                        'price_user_id' : userId
-                    })
-                        .success(function(commercial){
+					$http.get("/commercials/actualize/" + commercialId + "?async=1&price_user_id=" + userId)
+                        .success(function(data){
                             console.log("commercial successfully actualized");
 							location.reload();
                         })
@@ -221,6 +219,16 @@
                         });
 				}
 			},
+			getPriceUser: function(userId) {
+                $http.get("/api/user/" + userId + "?type=user")
+                    .success(function(data){
+						$scope.priceUser= angular.fromJson(data);
+                    })
+                    .error(function(err){
+                        return err;
+                    });
+
+            }
         };
 
         $scope.roomAPI = {
