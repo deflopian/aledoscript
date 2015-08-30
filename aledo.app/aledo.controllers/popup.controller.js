@@ -51,7 +51,7 @@
                         if (popupType == $scope.ALEDO_POPUP_SERVICE_CALCULATE || popupType == $scope.ALEDO_POPUP_CART_REGISTER) {
                             modal.find('.modal-content').addClass("popup-service");
                         }
-                        if(popupType == $scope.LEDO_POPUP_VACANCY_REQUEST){
+                        if(popupType == $scope.ALEDO_POPUP_VACANCY_REQUEST){
                             modal.find('.modal-dialog').addClass('b-vacancy-dialog');
                         }
 
