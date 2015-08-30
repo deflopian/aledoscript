@@ -6,6 +6,7 @@
 			$scope.nameError = false;
 			$scope.mailError = false;
 			$scope.fileError = false;
+            $scope.telephoneError = false;
 		
             var fd = new FormData();
 
@@ -24,6 +25,8 @@
 						if (data.messages.name) $scope.nameError = true;						
 						if (data.messages.mail) $scope.mailError = true;
 						if (data.messages.file) $scope.fileError = true;
+
+                        if (data.messages.telephone) $scope.telephoneError = true;
                     } else {
                         location.reload();
                     }

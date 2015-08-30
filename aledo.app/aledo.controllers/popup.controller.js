@@ -48,9 +48,13 @@
                         if(popupType == $scope.ALEDO_POPUP_REGISTER_SUCCESS){
                             modal.on('hidden.bs.modal', function () { location.reload(true); });
                         }
-                        if (popupType == $scope.ALEDO_POPUP_SERVICE_CALCULATE || popupType == $scope.ALEDO_POPUP_CART_REGISTER || popupType == $scope.ALEDO_POPUP_VACANCY_REQUEST) {
+                        if (popupType == $scope.ALEDO_POPUP_SERVICE_CALCULATE || popupType == $scope.ALEDO_POPUP_CART_REGISTER) {
                             modal.find('.modal-content').addClass("popup-service");
                         }
+                        if(popupType == $scope.LEDO_POPUP_VACANCY_REQUEST){
+                            modal.find('.modal-dialog').addClass('b-vacancy-dialog');
+                        }
+
                         //modal.modal('show');
                         $scope.source = data.content;
                         modal.find('.modal-content').html($scope.source);
