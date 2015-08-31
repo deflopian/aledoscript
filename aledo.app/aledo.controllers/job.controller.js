@@ -5,8 +5,9 @@
         $scope.submit = function () {
 			$scope.nameError = false;
 			$scope.mailError = false;
+			$scope.vacancyError = false;
 			$scope.fileError = false;
-            $scope.telephoneError = false;
+            $scope.phoneError = false;
 		
             var fd = new FormData();
 
@@ -25,10 +26,10 @@
 						if (data.messages.name) $scope.nameError = true;						
 						if (data.messages.mail) $scope.mailError = true;
 						if (data.messages.file) $scope.fileError = true;
-
-                        if (data.messages.telephone) $scope.telephoneError = true;
+						if (data.messages.letter) $scope.letterError = true;
+                        if ($scope.formData['vacancy'] && data.messages.phone) $scope.phoneError = true;
                     } else {
-                        location.reload();
+						$scope.getPopup($scope.ALEDO_POPUP_VACANCY_REQUEST_SUCCESS, $scope.formData.name);
                     }
                 });
         };
