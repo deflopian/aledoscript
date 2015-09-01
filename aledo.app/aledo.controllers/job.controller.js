@@ -14,6 +14,8 @@
             for (var j in $scope.formData) {
                 fd.append(j, $scope.formData[j]);
             }
+			
+			jQuery('#work_submit, #vacancy_submit').attr('disabled', 'disabled');
 
             $http.post('/vacancies/saveFormAjax/', fd, {
                 transformRequest: angular.identity,
@@ -21,6 +23,7 @@
             })
                 .success(function(data) {
                     console.log(data);
+					jQuery('#work_submit, #vacancy_submit').removeAttr('disabled');
 
                     if (!data.success) {
 						if (data.messages.name) $scope.nameError = true;						
@@ -31,7 +34,10 @@
                     } else {
 						$scope.getPopup($scope.ALEDO_POPUP_VACANCY_REQUEST_SUCCESS, $scope.formData.name);
                     }
-                });
+                })
+				.error(function(data) {
+					jQuery('#work_submit, #vacancy_submit').removeAttr('disabled');
+				});
         };
 
 
