@@ -32,7 +32,7 @@
 						if (data.messages.letter) $scope.letterError = true;
                         if ($scope.formData['vacancy'] && data.messages.phone) $scope.phoneError = true;
                     } else {
-						$scope.getPopup($scope.ALEDO_POPUP_VACANCY_REQUEST_SUCCESS, $scope.formData.name);
+						$scope.getPopup($scope.ALEDO_POPUP_VACANCY_REQUEST_SUCCESS, {name: $scope.formData.name});
                     }
                 })
 				.error(function(data) {

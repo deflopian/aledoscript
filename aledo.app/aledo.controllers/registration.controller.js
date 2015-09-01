@@ -16,7 +16,7 @@
             $scope.registration.$invalid = false;
         };
         $scope.submit = function () {
-            $http({
+			$http({
                 method  : 'POST',
                 url     : '/cabinet/register/',
                 data    : $.param($scope.formData),
@@ -30,11 +30,8 @@
                                 $scope.registration[field].$setValidity(errNum, false);
                             }
                         }
-                        //
-                        //$scope.errorUsername = data.e$ors.username;
-                        //$scope.errorPassword = data.errors.password;
                     } else {
-                        $scope.getPopup($scope.ALEDO_POPUP_REGISTER_SUCCESS, {email:$scope.formData.user_email});
+                        $scope.getPopup($scope.ALEDO_POPUP_REGISTER_SUCCESS, {email: $scope.formData.user_email, name: $scope.formData.user_name});
                     }
                 });
         };

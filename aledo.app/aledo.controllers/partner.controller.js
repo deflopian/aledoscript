@@ -79,7 +79,7 @@
                             }
                         }
                     } else {
-                        $scope.getPopup($scope.ALEDO_POPUP_REGISTER_SUCCESS, {});
+                        $scope.getPopup($scope.ALEDO_POPUP_PARTNER_CARD_SUCCESS, {name: $scope.formData.partner_name});
                     }
                 });
         };

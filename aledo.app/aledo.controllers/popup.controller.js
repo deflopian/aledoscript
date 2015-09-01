@@ -17,6 +17,7 @@
         $scope.ALEDO_POPUP_CALLBACK = 14;
 		$scope.ALEDO_POPUP_VACANCY_REQUEST = 15;
 		$scope.ALEDO_POPUP_VACANCY_REQUEST_SUCCESS = 16;
+		$scope.ALEDO_POPUP_PARTNER_CARD_SUCCESS = 17;
         $scope.formData = {};
 
         $scope.cache = "";
@@ -31,29 +32,28 @@
                 data : {'type': popupType, 'url': "", 'params': parameters}
             })
                 .success(function(data) {
-                    if(data.success){
+                    if (data.success){
                         var modal = $('#fooBarPopup');
                         modal.find('.modal-content').removeClass("popup-service popup-register popup-cart-buy popup-cart-buy-without-register");
                         //modal.find('.modal-content').html(data.content);
 
-
-                        if(popupType == $scope.ALEDO_POPUP_CART_BUY || popupType == $scope.ALEDO_POPUP_CART_BUY_WITHOUT_REGISTER){
+                        if (popupType == $scope.ALEDO_POPUP_CART_BUY || popupType == $scope.ALEDO_POPUP_CART_BUY_WITHOUT_REGISTER){
                             modal.addClass('cart-buy-popup');
                         } else {
                             modal.removeClass('cart-buy-popup');
                         }
 
-
-
-                        if(popupType == $scope.ALEDO_POPUP_REGISTER_SUCCESS){
+                        if (popupType == $scope.ALEDO_POPUP_REGISTER_SUCCESS){
                             modal.on('hidden.bs.modal', function () { location.reload(true); });
                         }
                         if (popupType == $scope.ALEDO_POPUP_SERVICE_CALCULATE || popupType == $scope.ALEDO_POPUP_CART_REGISTER) {
                             modal.find('.modal-content').addClass("popup-service");
                         }
-                        if(popupType == $scope.ALEDO_POPUP_VACANCY_REQUEST){
+                        if (popupType == $scope.ALEDO_POPUP_VACANCY_REQUEST){
                             modal.find('.modal-dialog').addClass('b-vacancy-dialog');
-                        }
+                        } else {
+							modal.find('.modal-dialog').removeClass('b-vacancy-dialog');
+						}
 
                         //modal.modal('show');
                         $scope.source = data.content;
