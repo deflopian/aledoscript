@@ -1,6 +1,7 @@
 ﻿(function ($) {
     function PartnerController($scope, $http) {
         $scope.formData = {};
+		$scope.reSubmit = false;
 
         $scope.validityOnChange = function(field) {
             //console.log($scope.partnerRegistration[field]);
@@ -71,6 +72,7 @@
                     console.log(data);
 
                     if (!data.success) {
+						$scope.reSubmit = true;
                         for (var field in data.errors) {
                             for (var errNum in data.errors[field]) {
                                 var newField = $scope.str_replace("user", "partner", field);
