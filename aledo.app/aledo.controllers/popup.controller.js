@@ -33,8 +33,10 @@
             })
                 .success(function(data) {
                     if (data.success){
-                        var modal = $('#fooBarPopup');
-                        modal.find('.modal-content').removeClass("popup-service popup-register popup-cart-buy popup-cart-buy-without-register");
+                        var modal = $('#fooBarPopup'),
+                            $dialog = modal.find(".modal-dialog"),
+                            $content = modal.find(".modal-content");
+                        $content.removeClass("popup-service popup-register popup-cart-buy popup-cart-buy-without-register");
                         //modal.find('.modal-content').html(data.content);
 
                         if (popupType == $scope.ALEDO_POPUP_CART_BUY || popupType == $scope.ALEDO_POPUP_CART_BUY_WITHOUT_REGISTER){
@@ -44,6 +46,7 @@
                         }
 
                         if (popupType == $scope.ALEDO_POPUP_REGISTER_SUCCESS){
+                            modal.addClass("modal_notice modal_vmiddle");
                             modal.on('hidden.bs.modal', function () { location.reload(true); });
                         }
                         if (popupType == $scope.ALEDO_POPUP_SERVICE_CALCULATE || popupType == $scope.ALEDO_POPUP_CART_REGISTER) {
@@ -57,13 +60,13 @@
 
                         //modal.modal('show');
                         $scope.source = data.content;
-                        modal.find('.modal-content').html($scope.source);
+                        $content.html($scope.source);
 
                         // compile the new DOM and link it to the current
                         // scope.
                         // NOTE: we only compile .childNodes so that
                         // we don't get into infinite loop compiling ourselves
-                        $compile(modal.find('.modal-content').contents())($scope);
+                        $compile($content.contents())($scope);
                         modal.modal('show');
                         //$scope.$eval(attrs.compile);
                         //$scope.$apply();
