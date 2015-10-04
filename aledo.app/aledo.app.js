@@ -34,8 +34,9 @@
                     return $.cookie();
                 },
 
-                setCookie: function(name, value){
-                    return $.cookie(name, value, { expires: 7, path: '/' });
+                setCookie: function(name, value, options){
+					
+					return $.cookie(name, value, jQuery.extend({ expires: 7, path: '/' }, options || {}));
                 },
 
                 deleteCookie: function(name){
