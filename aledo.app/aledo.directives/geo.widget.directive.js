@@ -4,7 +4,6 @@
             restrict: 'A',
 
             link: function (scope, $widget, attrs, ctrl) {
-                //return;
                 var $widgetContent = $widget.find(".b-geo-widget__content"),
                     $closeButton = $widget.find(".b-geo-widget__close"),
 					$sectionType = $widget.data("section-type"),
