@@ -4,9 +4,11 @@
             restrict: 'A',
 
             link: function (scope, $widget, attrs, ctrl) {
-                return;
+                //return;
                 var $widgetContent = $widget.find(".b-geo-widget__content"),
                     $closeButton = $widget.find(".b-geo-widget__close"),
+					$sectionType = $widget.data("section-type"),
+					$sectionId = $widget.data("section-id"),
                     openClass = "b-geo-widget_open";
 
                 var _closeWidget = function() {
@@ -15,16 +17,23 @@
                     _openWidget = function() {
                         $widget.addClass(openClass);
                     };
-                CookieFactory.getCookie("geo.widget.close").then(function(cookie) {
-                    if (cookie) return;
-                    $http({ url: "/", method: "GET" }).then(function(data) {
-                        $widgetContent.html(data);
-                        _openWidget();
-                    });
-                    $closeButton.on("click.geowidget", function() {
-                        CookieFactory.setCookie("geo.widget.close", 1, { expires: 2 });
-                        _closeWidget();
-                    });
+                
+                $http({
+						url: '/geobanners/get/',
+						method: 'POST',
+						headers : { 'Content-Type': 'application/x-www-form-urlencoded' },
+						data: $.param({'section_type': $sectionType, 'section_id': $sectionId})
+					}).then(function(response) {
+						if (response.data.text != null) {
+							if (response.data.link != null && response.data.link != '') {
+								$widgetContent.html('<a href="' + response.data.link + '" style="text-decoration: none;" target="_blank">' + response.data.text + '</a>');
+							}
+							else $widgetContent.html(response.data.text);
+							_openWidget();
+						}
+					});
+                $closeButton.on("click.geowidget", function() {
+                    _closeWidget();
                 });
             }
         };
