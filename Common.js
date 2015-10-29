@@ -82,9 +82,12 @@ function Aledo() {
             }).on("click.hideAuth", function(e) {
                 _.$authBlock.is(":visible") && !jQuery(e.target).closest(_.authBlock).length && _hideAuthBlock();
             });
-            $window.on("scroll", function() {
-                _isLayoutScrolled() && _enableScrolledClass() || _disableScrolledClass();
-            });
+
+                $window.on("scroll", function () {
+                    _isLayoutScrolled() && _enableScrolledClass() || _disableScrolledClass();
+                });
+
+
         },
         _showAuthBlock = function() {
             if (authAnimation) return;
