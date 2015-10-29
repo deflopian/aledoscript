@@ -1,13 +1,16 @@
 ﻿(function () {
     angular.module('aledo.services', []);
+	angular.module('aledo.factories', []);
     angular.module('aledo.controllers', []);
     angular.module('aledo.directives', []);
+	
     
     angular.module('Aledo', [
         'ngTouch',
         'aledo.controllers',
         'aledo.services',
         'aledo.directives',
+		'aledo.factories',
         "solo.table", "ngTouch", "myFilters", 'angular-sortable-view'
     ]);
     angular.module('Aledo')
