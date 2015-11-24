@@ -1,13 +1,13 @@
 ﻿(function ($) {
     function PartnerController($scope, $http) {
         $scope.formData = {};
-		$scope.reSubmit = false;
 
         $scope.validityOnChange = function(field) {
             //console.log($scope.partnerRegistration[field]);
             if ($scope.partnerRegistration[field].$invalid) {
                 $scope.partnerRegistration[field].$invalid = false;
                 $scope.partnerRegistration[field].$valid = true;
+                $scope.partnerRegistration[field].$error = [];
             }
 
             for (var f in $scope.formData) {
@@ -72,10 +72,11 @@
                     console.log(data);
 
                     if (!data.success) {
-						$scope.reSubmit = true;
                         for (var field in data.errors) {
                             for (var errNum in data.errors[field]) {
                                 var newField = $scope.str_replace("user", "partner", field);
+								newField = $scope.str_replace("partner_cur_password", "partner_password", newField);
+								newField = $scope.str_replace("partner_is_spamed", "user_is_spamed", newField);
                                 console.log(newField);
                                 $scope.partnerRegistration[newField].$setValidity(errNum, false);
                             }
