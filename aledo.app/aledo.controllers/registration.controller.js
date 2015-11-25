@@ -4,6 +4,8 @@
         $scope.validityOnChange = function(field) {
             if ($scope.registration[field].$invalid) {
                 $scope.registration[field].$invalid = false;
+                $scope.registration[field].$valid = true;
+                $scope.registration[field].$error = [];
             }
 
             for (var f in $scope.formData) {
@@ -14,6 +16,7 @@
             }
 
             $scope.registration.$invalid = false;
+            $scope.registration.$valid = true;
         };
         $scope.submit = function () {
 			$http({
