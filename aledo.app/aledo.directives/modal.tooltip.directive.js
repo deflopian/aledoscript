@@ -10,6 +10,7 @@
                         $modal = jQuery($modal),
                         $targetLast = null,
                         $window = jQuery(window),
+						$document = jQuery(document),
                         $modalArrow = $modal.find(".b-modal-tooltip__arrow"),
                         $close = $modal.find(".b-modal-tooltip__close"),
                      _close = function () {
@@ -33,12 +34,18 @@
                         _close();
                     })
                        
-                    $target.on(scope.settings.events || "click", function () {
+                    $target.on(scope.settings.events || "click", function (e) {
                         $targetLast = jQuery(this);
                         $modal.show();
                         _setPosition();
-                       
+					
                     });
+					
+					$document.on("click.modal.tooltip", function(e){
+						var $target = jQuery(e.target);
+						if($target.closest(scope.settings.target).length || $target.closest($modal).length ) return;
+						 _close();
+					});
                     $window.on("resize.tooltip.helper", function () {
                         _setPosition();
                     });
